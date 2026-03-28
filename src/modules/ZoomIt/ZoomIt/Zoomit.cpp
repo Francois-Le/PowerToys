@@ -10514,6 +10514,7 @@ LRESULT APIENTRY MainWndProc(
 
             // Circle zoom: draw unzoomed background and clip the zoomed view to a circle
             HRGN hCircleRgn = NULL;
+            int circleRadius = static_cast<int>(g_CircleZoomRadius);
             if( g_CircleZoom && zoomLevel > 1.0f )
             {
                 // Draw the unzoomed captured screen as background
@@ -10521,10 +10522,9 @@ LRESULT APIENTRY MainWndProc(
                         hdcScreenCompat, 0, 0, SRCCOPY|CAPTUREBLT );
 
                 // Create a circular clipping region centered on the cursor
-                int radius = static_cast<int>(g_CircleZoomRadius);
                 hCircleRgn = CreateEllipticRgn(
-                    cursorPos.x - radius, cursorPos.y - radius,
-                    cursorPos.x + radius + 1, cursorPos.y + radius + 1 );
+                    cursorPos.x - circleRadius, cursorPos.y - circleRadius,
+                    cursorPos.x + circleRadius + 1, cursorPos.y + circleRadius + 1 );
                 SelectClipRgn( ps.hdc, hCircleRgn );
             }
 
@@ -10580,10 +10580,9 @@ LRESULT APIENTRY MainWndProc(
                 HPEN hBorderPen = CreatePen( PS_SOLID, 2, RGB(128, 128, 128) );
                 HPEN hOldPen = static_cast<HPEN>(SelectObject( ps.hdc, hBorderPen ));
                 HBRUSH hOldBrush = static_cast<HBRUSH>(SelectObject( ps.hdc, GetStockObject(NULL_BRUSH) ));
-                int radius = static_cast<int>(g_CircleZoomRadius);
                 Ellipse( ps.hdc,
-                         cursorPos.x - radius, cursorPos.y - radius,
-                         cursorPos.x + radius + 1, cursorPos.y + radius + 1 );
+                         cursorPos.x - circleRadius, cursorPos.y - circleRadius,
+                         cursorPos.x + circleRadius + 1, cursorPos.y + circleRadius + 1 );
                 SelectObject( ps.hdc, hOldBrush );
                 SelectObject( ps.hdc, hOldPen );
                 DeleteObject( hBorderPen );
