@@ -214,6 +214,34 @@ namespace Microsoft.PowerToys.Settings.UI.ViewModels
             }
         }
 
+        public bool CircleZoom
+        {
+            get => _zoomItSettings.Properties.CircleZoom.Value;
+            set
+            {
+                if (_zoomItSettings.Properties.CircleZoom.Value != value)
+                {
+                    _zoomItSettings.Properties.CircleZoom.Value = value;
+                    OnPropertyChanged(nameof(CircleZoom));
+                    NotifySettingsChanged();
+                }
+            }
+        }
+
+        public int CircleZoomRadius
+        {
+            get => _zoomItSettings.Properties.CircleZoomRadius.Value;
+            set
+            {
+                if (_zoomItSettings.Properties.CircleZoomRadius.Value != value)
+                {
+                    _zoomItSettings.Properties.CircleZoomRadius.Value = value;
+                    OnPropertyChanged(nameof(CircleZoomRadius));
+                    NotifySettingsChanged();
+                }
+            }
+        }
+
         public int ZoominSliderLevel
         {
             get => _zoomItSettings.Properties.ZoominSliderLevel.Value;

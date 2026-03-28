@@ -24,6 +24,8 @@ DWORD	g_ShowExpiredTime = 1;
 DWORD	g_SliderZoomLevel = 3;
 BOOLEAN g_AnimateZoom = TRUE;
 BOOLEAN g_SmoothImage = TRUE;
+BOOLEAN g_CircleZoom = FALSE;
+DWORD	g_CircleZoomRadius = 200;
 DWORD	g_PenColor = COLOR_RED;
 DWORD	g_BreakPenColor = COLOR_RED;
 DWORD	g_BreakBackgroundColor = 0;
@@ -99,6 +101,8 @@ REG_SETTING RegSettings[] = {
     // NOTE: AnimateZoom is misspelled, but since it is a user setting stored in the registry we must continue to misspell it.
     { L"AnimnateZoom", SETTING_TYPE_BOOLEAN, 0, &g_AnimateZoom, static_cast<DOUBLE>(g_AnimateZoom) },
     { L"SmoothImage", SETTING_TYPE_BOOLEAN, 0, &g_SmoothImage, static_cast<DOUBLE>(g_SmoothImage) },
+    { L"CircleZoom", SETTING_TYPE_BOOLEAN, 0, &g_CircleZoom, static_cast<DOUBLE>(g_CircleZoom) },
+    { L"CircleZoomRadius", SETTING_TYPE_DWORD, 0, &g_CircleZoomRadius, static_cast<DOUBLE>(g_CircleZoomRadius) },
     { L"TelescopeZoomOut", SETTING_TYPE_BOOLEAN, 0, &g_TelescopeZoomOut, static_cast<DOUBLE>(g_TelescopeZoomOut) },
     { L"SnapToGrid", SETTING_TYPE_BOOLEAN, 0, &g_SnapToGrid, static_cast<DOUBLE>(g_SnapToGrid) },
     { L"ZoominSliderLevel", SETTING_TYPE_DWORD, 0, &g_SliderZoomLevel, static_cast<DOUBLE>(g_SliderZoomLevel) },
