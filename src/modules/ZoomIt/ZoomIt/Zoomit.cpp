@@ -10511,6 +10511,23 @@ LRESULT APIENTRY MainWndProc(
             OutputDebug( L"PAINT x: %d y: %d width: %d height: %d zoomLevel: %g\n",
                     cursorPos.x, cursorPos.y, width, height, zoomLevel );
             GetZoomedTopLeftCoordinates( zoomLevel, &cursorPos, &x, width, &y, height );
+
+            // Circle zoom: draw unzoomed background and clip the zoomed view to a circle
+            HRGN hCircleRgn = NULL;
+            if( g_CircleZoom && zoomLevel > 1.0f )
+            {
+                // Draw the unzoomed captured screen as background
+                BitBlt( ps.hdc, 0, 0, bmp.bmWidth, bmp.bmHeight,
+                        hdcScreenCompat, 0, 0, SRCCOPY|CAPTUREBLT );
+
+                // Create a circular clipping region centered on the cursor
+                int radius = static_cast<int>(g_CircleZoomRadius);
+                hCircleRgn = CreateEllipticRgn(
+                    cursorPos.x - radius, cursorPos.y - radius,
+                    cursorPos.x + radius + 1, cursorPos.y + radius + 1 );
+                SelectClipRgn( ps.hdc, hCircleRgn );
+            }
+
 #if SCALE_GDIPLUS
             if ( zoomLevel >= zoomTelescopeTarget )  {
                 // do a high-quality render
@@ -10553,6 +10570,26 @@ LRESULT APIENTRY MainWndProc(
                     static_cast<int>(width/zoomLevel), static_cast<int>(height/zoomLevel),
                     SRCCOPY|CAPTUREBLT );
 #endif
+
+            // Circle zoom: remove clipping and draw a circle border
+            if( hCircleRgn != NULL )
+            {
+                SelectClipRgn( ps.hdc, NULL );
+
+                // Draw a border around the circle
+                HPEN hBorderPen = CreatePen( PS_SOLID, 2, RGB(128, 128, 128) );
+                HPEN hOldPen = static_cast<HPEN>(SelectObject( ps.hdc, hBorderPen ));
+                HBRUSH hOldBrush = static_cast<HBRUSH>(SelectObject( ps.hdc, GetStockObject(NULL_BRUSH) ));
+                int radius = static_cast<int>(g_CircleZoomRadius);
+                Ellipse( ps.hdc,
+                         cursorPos.x - radius, cursorPos.y - radius,
+                         cursorPos.x + radius + 1, cursorPos.y + radius + 1 );
+                SelectObject( ps.hdc, hOldBrush );
+                SelectObject( ps.hdc, hOldPen );
+                DeleteObject( hBorderPen );
+
+                DeleteObject( hCircleRgn );
+            }
         } else if( g_TimerActive ) {
 
             // Fill background (white by default, black if saved as 1)
