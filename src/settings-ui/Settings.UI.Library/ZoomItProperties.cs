@@ -93,6 +93,10 @@ namespace Microsoft.PowerToys.Settings.UI.Library
 
         public BoolProperty SmoothImage { get; set; }
 
+        public BoolProperty CircleZoom { get; set; }
+
+        public IntProperty CircleZoomRadius { get; set; }
+
         public IntProperty ZoominSliderLevel { get; set; }
 
         public IntProperty RecordScaling { get; set; }

@@ -4572,6 +4572,12 @@ Press **Ctrl + Shift** to crop before copying or saving.</value>
   <data name="ZoomIt_Toggle_SmoothZoomedImage.Content" xml:space="preserve">
     <value>Smooth the zoomed image</value>
   </data>
+  <data name="ZoomIt_Toggle_CircleZoom.Content" xml:space="preserve">
+    <value>Limit zoom to a circle around the mouse pointer</value>
+  </data>
+  <data name="ZoomIt_CircleZoomRadius.Header" xml:space="preserve">
+    <value>Circle radius (pixels)</value>
+  </data>
   <data name="ZoomIt_Slider_InitialMagnification.Header" xml:space="preserve">
     <value>Initial zoom level</value>
   </data>

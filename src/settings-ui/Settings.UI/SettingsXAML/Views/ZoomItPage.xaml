@@ -57,6 +57,22 @@
                             <tkcontrols:SettingsCard Name="ZoomItSmoothZoomedImage" ContentAlignment="Left">
                                 <CheckBox x:Uid="ZoomIt_Toggle_SmoothZoomedImage" IsChecked="{x:Bind ViewModel.SmoothImage, Mode=TwoWay}" />
                             </tkcontrols:SettingsCard>
+                            <tkcontrols:SettingsCard Name="ZoomItCircleZoom" ContentAlignment="Left">
+                                <CheckBox x:Uid="ZoomIt_Toggle_CircleZoom" IsChecked="{x:Bind ViewModel.CircleZoom, Mode=TwoWay}" />
+                            </tkcontrols:SettingsCard>
+                            <tkcontrols:SettingsCard
+                                Name="ZoomItCircleZoomRadius"
+                                x:Uid="ZoomIt_CircleZoomRadius"
+                                Visibility="{x:Bind ViewModel.CircleZoom, Mode=OneWay}">
+                                <NumberBox
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    LargeChange="50"
+                                    Maximum="2000"
+                                    Minimum="50"
+                                    SmallChange="10"
+                                    SpinButtonPlacementMode="Compact"
+                                    Value="{x:Bind ViewModel.CircleZoomRadius, Mode=TwoWay}" />
+                            </tkcontrols:SettingsCard>
                             <tkcontrols:SettingsCard Name="ZoomItSliderInitialMagnification" x:Uid="ZoomIt_Slider_InitialMagnification">
                                 <Slider
                                     MinWidth="{StaticResource SettingActionControlMinWidth}"
