@@ -50,20 +50,16 @@ jobs:
             /m
         shell: pwsh
 
-      - name: Upload ZoomIt module artifact
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: ZoomIt-x64-Release
+          name: PowerToys-x64-Release
           path: |
-            x64/Release/modules/ZoomIt/
-          retention-days: 14
-
-      - name: Upload Settings UI artifact
-        uses: actions/upload-artifact@v4
-        if: success()
-        with:
-          name: Settings-x64-Release
-          path: |
-            x64/Release/Settings/
+            x64/Release/
+            !x64/Release/**/*.pdb
+            !x64/Release/**/*.ipdb
+            !x64/Release/**/*.iobj
+            !x64/Release/**/*.lib
+            !x64/Release/**/*.exp
           retention-days: 14
